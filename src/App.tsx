@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
+interface ITodo {
+  id: number;
+  title: string;
+  complete: boolean;
+}
+
+const App: React.FC = () => {
+  const [value, setValue] = useState("");
+  const [todos, setTodos] = useState<ITodo[]>([]);
+
+  const addTodo = () => {
+    setTodos([
+      ...todos,
+      {
+        id: Date.now(),
+        title: value,
+        complete: false,
+      },
+    ]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <input
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          type="text"
+          name=""
+          id=""
+        />
+        <button onClick={addTodo}>Add</button>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
